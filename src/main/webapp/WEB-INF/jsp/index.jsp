@@ -9,15 +9,15 @@
         <script src="resources/sockjs.js"></script>
         <script src="resources/stomp.js"></script>
         <script>
-            var socket = new SockJS("/WS/endpoint");
+            var socket = new SockJS("/WS2/endpoint");
             var stompClient = Stomp.over(socket);
             
             stompClient.connect({}, function (frame) {
                 console.log('!!!Connected ' + frame);
                 
-//                stompClient.subscribe("/app/ping", function (message) {
-//                    console.log(JSON.parse(message.body));
-//                });
+                stompClient.subscribe("/app/msg", function (message) {
+                    console.log(JSON.parse(message.body));
+                });
 //                
 //                stompClient.subscribe("/topic/inf", function (message) {
 //                    console.log(message.body);

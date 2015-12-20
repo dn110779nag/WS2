@@ -13,6 +13,19 @@ public class WsMessage {
     private String data;
     private long interval;
 
+    public WsMessage() {
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
+    
+    
+
     public WsMessage(String data, long interval) {
         this.data = data;
         this.interval = interval;

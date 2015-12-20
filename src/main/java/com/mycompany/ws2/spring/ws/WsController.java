@@ -5,7 +5,6 @@
  */
 package com.mycompany.ws2.spring.ws;
 
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -30,8 +29,11 @@ public class WsController {
                 logger.error("", ex);
             }
         }
-        
-        
+    }
+    
+    @SubscribeMapping("/msg")
+    public WsMessage sendMessage(){
+        return new WsMessage("hello from app", 1);
     }
     
 }
