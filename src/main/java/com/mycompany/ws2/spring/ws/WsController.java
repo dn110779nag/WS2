@@ -7,6 +7,7 @@ package com.mycompany.ws2.spring.ws;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
@@ -17,10 +18,12 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private int counter = 0;
     
     @SubscribeMapping("/test")
-    public void recieveMessage(WsMessage msg){
-        logger.info("data size="+msg.getData().length());
+    @SendTo("/topic/msg")
+    public WsMessage recieveMessage(WsMessage msg){
+        logger.info("data size="+msg.getData().length()+"; counter="+(++counter));
         if(msg.getInterval()>0){
             logger.info("pause="+msg.getInterval());
             try {
@@ -29,6 +32,7 @@ public class WsController {
                 logger.error("", ex);
             }
         }
+        return msg;
     }
     
     @SubscribeMapping("/msg")

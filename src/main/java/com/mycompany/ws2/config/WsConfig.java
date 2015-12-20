@@ -7,6 +7,7 @@ package com.mycompany.ws2.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -39,4 +40,11 @@ public class WsConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		registry.setApplicationDestinationPrefixes("/app");
 	}
 
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        
+        registration.taskExecutor().corePoolSize(2);
+    }
+
+        
 }

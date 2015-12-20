@@ -19,9 +19,9 @@
                     console.log(JSON.parse(message.body));
                 });
 //                
-//                stompClient.subscribe("/topic/inf", function (message) {
-//                    console.log(message.body);
-//                });
+                stompClient.subscribe("/topic/msg", function (message) {
+                    console.log(message.body);
+                });
 //                
 //                stompClient.subscribe("/queue/errors", function (message) {
 //                    console.log(JSON.parse(message.body));
@@ -32,7 +32,13 @@
             
             function test(){
                 console.log("sid: "+socket.sessionId);
-                stompClient.send("/app/test", {}, JSON.stringify({data:'test', interval: 100}));
+                for(var i=0;i<100;i++){
+                    var msg = "msg "+i+" ";
+                    for(var j=0; j<10000; j++){
+                        msg+=Math.round(Math.random()*10);
+                    }
+                    stompClient.send("/app/test", {}, JSON.stringify({data:msg, interval: 10000}));
+                }
             }
         </script>
     </head>
